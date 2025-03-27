@@ -4,24 +4,26 @@ import com.management.patient.Dto.PatientRequestDTO;
 import com.management.patient.Dto.PatientResponseDTO;
 import com.management.patient.Entity.Patient;
 
+import java.time.LocalDate;
+
 public class PatientMapper {
-    public static PatientResponseDTO toDTO(Patient patient){
-        PatientResponseDTO patientResponseDTO = new PatientResponseDTO();
-        patientResponseDTO.setId(patient.getId().toString());
-        patientResponseDTO.setName(patient.getName());
-        patientResponseDTO.setEmail(patient.getEmail());
-        patientResponseDTO.setAddress(patient.getAddress());
-        patientResponseDTO.setDateOfBirth(patient.getDateOfBirth().toString());
-        return patientResponseDTO;
+    public static PatientResponseDTO toDTO(Patient patient) {
+        PatientResponseDTO patientDTO = new PatientResponseDTO();
+        patientDTO.setId(patient.getId().toString());
+        patientDTO.setName(patient.getName());
+        patientDTO.setAddress(patient.getAddress());
+        patientDTO.setEmail(patient.getEmail());
+        patientDTO.setDateOfBirth(patient.getDateOfBirth().toString());
+        return patientDTO;
     }
 
-    public static PatientRequestDTO toModel(Patient patient){
-        PatientRequestDTO patientRequestDTO = new PatientRequestDTO();
-        patientRequestDTO.setName(patient.getName());
-        patientRequestDTO.setEmail(patient.getEmail());
-        patientRequestDTO.setAddress(patient.getAddress());
-        patientRequestDTO.setDateOfBirth(patient.getDateOfBirth().toString());
-        patientRequestDTO.setRegisteredDate(patient.getRegisteredDate().toString());
-        return patientRequestDTO;
+    public static Patient toModel(PatientRequestDTO patientRequestDTO) {
+        Patient patient = new Patient();
+        patient.setName(patientRequestDTO.getName());
+        patient.setAddress(patientRequestDTO.getAddress());
+        patient.setEmail(patientRequestDTO.getEmail());
+        patient.setDateOfBirth(LocalDate.parse(patientRequestDTO.getDateOfBirth()));
+        patient.setRegisteredDate(LocalDate.parse(patientRequestDTO.getRegisteredDate()));
+        return patient;
     }
 }
